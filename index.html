@@ -37,10 +37,36 @@
       max-width: 28rem;
       margin: 0 auto;
     }
+    .max-w-4xl {
+      max-width: 64rem;
+      margin: 0 auto;
+    }
     .header {
       text-align: center;
       margin-bottom: 2rem;
       padding-top: 1rem;
+    }
+    .header-with-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-top: 1rem;
+    }
+    .nav-button {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s;
+    }
+    .nav-button:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
     .streak-badge {
       display: inline-flex;
@@ -73,6 +99,86 @@
     .subtitle {
       color: rgba(255, 255, 255, 0.8);
       font-size: 0.875rem;
+    }
+    .login-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .login-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #1f2937;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+    .form-input:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+    }
+    .submit-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+    .submit-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
+    }
+    .submit-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .toggle-mode {
+      text-align: center;
+      margin-top: 1rem;
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    .toggle-link {
+      color: #a855f7;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+    .error-message {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
     }
     .progress-card {
       background: rgba(255, 255, 255, 0.1);
@@ -249,57 +355,158 @@
     .success-title {
       font-weight: 700;
       font-size: 1.25rem;
-      margin-bottom: 0.25rem;
     }
     .success-text {
-      color: rgba(255, 255, 255, 0.9);
       font-size: 0.875rem;
+      opacity: 0.9;
     }
     .button-group {
       display: flex;
       gap: 0.75rem;
+      margin-bottom: 1rem;
     }
     .button {
       flex: 1;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      color: white;
-      font-weight: 600;
-      padding: 0.75rem 1rem;
-      border-radius: 0.75rem;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #6b21a8;
     }
     .button:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .footer-text {
-      margin-top: 1.5rem;
       text-align: center;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.75rem;
-    }
-    @keyframes bounce-in {
-      0% { transform: scale(0.8); opacity: 0; }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); opacity: 1; }
+      margin-top: 1rem;
     }
     .loading {
-      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 100vh;
       background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #d946ef 100%);
     }
     .loading-text {
       color: white;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .user-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .user-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .user-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    .user-streak {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fb923c;
+      font-weight: 700;
+    }
+    .user-progress {
+      margin-top: 1rem;
+    }
+    .user-task {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: #f9fafb;
+      border-radius: 0.5rem;
+    }
+    .user-task.completed {
+      background: #f0fdf4;
+    }
+    .user-task-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+    .user-task-name {
+      flex: 1;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    .user-task-name.completed {
+      color: #10b981;
+      font-weight: 600;
+    }
+    .user-note {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: #fef3c7;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: #78350f;
+      border-left: 3px solid #f59e0b;
+    }
+    .user-note-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .admin-title {
+      color: white;
       font-size: 1.5rem;
       font-weight: 700;
+    }
+    .last-updated {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </head>
@@ -308,55 +515,395 @@
 
   <script type="text/babel">
     const { useState, useEffect } = React;
+    const { Check, Flame, Edit2, RotateCcw, LogOut, Users } = lucide;
 
-    // Icon Components
-    const Flame = () => (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
-      </svg>
-    );
+    // Main App Component
+    function App() {
+      const [currentUser, setCurrentUser] = useState(null);
+      const [isLoading, setIsLoading] = useState(true);
 
-    const Check = () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-    );
+      useEffect(() => {
+        checkAuth();
+      }, []);
 
-    const Edit2 = () => (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
-      </svg>
-    );
+      const checkAuth = async () => {
+        try {
+          const result = await window.storage.get('current-user');
+          if (result && result.value) {
+            setCurrentUser(JSON.parse(result.value));
+          }
+        } catch (error) {
+          console.log('No active session');
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-    const RotateCcw = () => (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="1 4 1 10 7 10"/>
-        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-      </svg>
-    );
+      const handleLogin = async (user) => {
+        try {
+          await window.storage.set('current-user', JSON.stringify(user));
+          setCurrentUser(user);
+        } catch (error) {
+          console.error('Failed to save session:', error);
+        }
+      };
 
-    function StreakTracker() {
+      const handleLogout = async () => {
+        try {
+          await window.storage.delete('current-user');
+          setCurrentUser(null);
+        } catch (error) {
+          console.error('Failed to logout:', error);
+        }
+      };
+
+      if (isLoading) {
+        return (
+          <div className="loading">
+            <div className="loading-text">Loading...</div>
+          </div>
+        );
+      }
+
+      if (!currentUser) {
+        return <LoginPage onLogin={handleLogin} />;
+      }
+
+      if (currentUser.isAdmin) {
+        return <AdminDashboard currentUser={currentUser} onLogout={handleLogout} />;
+      }
+
+      return <StreakTracker currentUser={currentUser} onLogout={handleLogout} />;
+    }
+
+    // Login/Registration Component
+    function LoginPage({ onLogin }) {
+      const [isRegistering, setIsRegistering] = useState(false);
+      const [username, setUsername] = useState('');
+      const [password, setPassword] = useState('');
+      const [name, setName] = useState('');
+      const [error, setError] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setIsLoading(true);
+
+        try {
+          if (isRegistering) {
+            // Registration
+            const usersResult = await window.storage.get('users-list', true);
+            const users = usersResult ? JSON.parse(usersResult.value) : [];
+
+            if (users.find(u => u.username === username.toLowerCase())) {
+              setError('Username already exists');
+              setIsLoading(false);
+              return;
+            }
+
+            const newUser = {
+              username: username.toLowerCase(),
+              password: password,
+              name: name || username,
+              isAdmin: false,
+              createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            await window.storage.set('users-list', JSON.stringify(users), true);
+            
+            onLogin({ username: newUser.username, name: newUser.name, isAdmin: false });
+          } else {
+            // Login - check for admin first
+            if (username.toLowerCase() === 'admin' && password === 'admin123') {
+              onLogin({ username: 'admin', name: 'Admin', isAdmin: true });
+              return;
+            }
+
+            // Regular user login
+            const usersResult = await window.storage.get('users-list', true);
+            const users = usersResult ? JSON.parse(usersResult.value) : [];
+            
+            const user = users.find(u => u.username === username.toLowerCase() && u.password === password);
+            
+            if (!user) {
+              setError('Invalid username or password');
+              setIsLoading(false);
+              return;
+            }
+
+            onLogin({ username: user.username, name: user.name, isAdmin: false });
+          }
+        } catch (error) {
+          console.error('Auth error:', error);
+          setError('An error occurred. Please try again.');
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      return (
+        <div className="container">
+          <div className="max-w-md">
+            <div className="header">
+              <h1 className="title">Daily Streak Tracker</h1>
+              <p className="subtitle">Track your habits, build your team</p>
+            </div>
+
+            <div className="login-card">
+              <h2 className="login-title">{isRegistering ? 'Create Account' : 'Welcome Back'}</h2>
+              
+              <form onSubmit={handleSubmit}>
+                {isRegistering && (
+                  <div className="form-group">
+                    <label className="form-label">Your Name</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="John Doe"
+                      required={isRegistering}
+                    />
+                  </div>
+                )}
+
+                <div className="form-group">
+                  <label className="form-label">Username</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="username"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Password</label>
+                  <input
+                    type="password"
+                    className="form-input"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+
+                {error && <div className="error-message">{error}</div>}
+
+                <button type="submit" className="submit-button" disabled={isLoading}>
+                  {isLoading ? 'Please wait...' : (isRegistering ? 'Create Account' : 'Sign In')}
+                </button>
+              </form>
+
+              <div className="toggle-mode">
+                {isRegistering ? 'Already have an account? ' : "Don't have an account? "}
+                <a className="toggle-link" onClick={() => {
+                  setIsRegistering(!isRegistering);
+                  setError('');
+                }}>
+                  {isRegistering ? 'Sign In' : 'Create One'}
+                </a>
+              </div>
+
+              <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#fef3c7', borderRadius: '0.5rem', fontSize: '0.875rem' }}>
+                <strong>Admin Access:</strong><br />
+                Username: admin<br />
+                Password: admin123
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Admin Dashboard Component
+    function AdminDashboard({ currentUser, onLogout }) {
+      const [usersData, setUsersData] = useState([]);
+      const [isLoading, setIsLoading] = useState(true);
+
+      useEffect(() => {
+        loadAllUsersData();
+      }, []);
+
+      const loadAllUsersData = async () => {
+        try {
+          const usersResult = await window.storage.get('users-list', true);
+          const users = usersResult ? JSON.parse(usersResult.value) : [];
+
+          const usersWithData = await Promise.all(
+            users.map(async (user) => {
+              try {
+                const dataKey = `user-data-${user.username}`;
+                const dataResult = await window.storage.get(dataKey, true);
+                const userData = dataResult ? JSON.parse(dataResult.value) : getDefaultUserData();
+                
+                return {
+                  ...user,
+                  data: userData
+                };
+              } catch (error) {
+                return {
+                  ...user,
+                  data: getDefaultUserData()
+                };
+              }
+            })
+          );
+
+          setUsersData(usersWithData);
+        } catch (error) {
+          console.error('Failed to load users data:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      const getDefaultUserData = () => ({
+        tasks: [
+          { id: 1, name: 'Morning Exercise', completed: false },
+          { id: 2, name: 'Read 30 Minutes', completed: false },
+          { id: 3, name: 'Drink 8 Glasses of Water', completed: false },
+          { id: 4, name: 'Meditate 10 Minutes', completed: false },
+          { id: 5, name: 'No Social Media Before Bed', completed: false }
+        ],
+        streak: 0,
+        task6Text: '',
+        task6Completed: false,
+        lastActiveDate: null
+      });
+
+      if (isLoading) {
+        return (
+          <div className="loading">
+            <div className="loading-text">Loading dashboard...</div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="container">
+          <div className="max-w-4xl">
+            <div className="admin-header">
+              <div>
+                <div className="admin-title">🎯 Team Dashboard</div>
+                <div className="subtitle">{usersData.length} team members</div>
+              </div>
+              <button onClick={onLogout} className="nav-button">
+                <LogOut size={16} style={{ display: 'inline', marginRight: '0.5rem' }} />
+                Logout
+              </button>
+            </div>
+
+            <div className="admin-grid">
+              {usersData.map((user) => (
+                <UserCard key={user.username} user={user} />
+              ))}
+
+              {usersData.length === 0 && (
+                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: 'white' }}>
+                  <Users size={48} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
+                  <p style={{ fontSize: '1.125rem', fontWeight: '600' }}>No team members yet</p>
+                  <p style={{ fontSize: '0.875rem', opacity: 0.8 }}>Share the registration link with your team!</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // User Card Component for Admin Dashboard
+    function UserCard({ user }) {
+      const { tasks, streak, task6Text, task6Completed } = user.data;
+      const completedCount = tasks.filter(t => t.completed).length + (task6Completed ? 1 : 0);
+      const progress = (completedCount / 6) * 100;
+      const allCompleted = completedCount === 6;
+
+      return (
+        <div className="user-card">
+          <div className="user-header">
+            <div className="user-name">{user.name}</div>
+            <div className="user-streak">
+              <Flame size={20} />
+              {streak}
+            </div>
+          </div>
+
+          <div className="progress-header" style={{ marginBottom: '0.5rem' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#6b7280' }}>Progress</span>
+            <span style={{ fontSize: '0.875rem', fontWeight: '700', color: '#1f2937' }}>{completedCount}/6</span>
+          </div>
+          <div className="progress-bar-bg">
+            <div className="progress-bar" style={{ width: `${progress}%` }} />
+          </div>
+
+          <div className="user-progress">
+            {tasks.map((task) => (
+              <div key={task.id} className={`user-task ${task.completed ? 'completed' : ''}`}>
+                {task.completed ? (
+                  <Check size={20} className="user-task-icon" color="#10b981" />
+                ) : (
+                  <div className="user-task-icon" style={{ width: '20px', height: '20px', border: '2px solid #d1d5db', borderRadius: '50%' }} />
+                )}
+                <div className={`user-task-name ${task.completed ? 'completed' : ''}`}>
+                  {task.name}
+                </div>
+              </div>
+            ))}
+
+            <div className={`user-task ${task6Completed ? 'completed' : ''}`}>
+              {task6Completed ? (
+                <Check size={20} className="user-task-icon" color="#10b981" />
+              ) : (
+                <div className="user-task-icon" style={{ width: '20px', height: '20px', border: '2px solid #d1d5db', borderRadius: '50%' }} />
+              )}
+              <div className={`user-task-name ${task6Completed ? 'completed' : ''}`}>
+                Daily Note
+              </div>
+            </div>
+          </div>
+
+          {task6Text && (
+            <div className="user-note">
+              <div className="user-note-label">Today's Note:</div>
+              {task6Text}
+            </div>
+          )}
+
+          {allCompleted && (
+            <div style={{ marginTop: '1rem', padding: '0.75rem', background: '#f0fdf4', borderRadius: '0.5rem', textAlign: 'center', color: '#10b981', fontWeight: '600', fontSize: '0.875rem' }}>
+              ✓ All tasks completed!
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // Streak Tracker Component (for regular users)
+    function StreakTracker({ currentUser, onLogout }) {
       const [tasks, setTasks] = useState([
-        { id: 1, name: 'Exercise', completed: false },
-        { id: 2, name: 'Read', completed: false },
-        { id: 3, name: 'Meditate', completed: false },
-        { id: 4, name: 'Drink Water', completed: false },
-        { id: 5, name: 'Study', completed: false }
+        { id: 1, name: 'Morning Exercise', completed: false },
+        { id: 2, name: 'Read 30 Minutes', completed: false },
+        { id: 3, name: 'Drink 8 Glasses of Water', completed: false },
+        { id: 4, name: 'Meditate 10 Minutes', completed: false },
+        { id: 5, name: 'No Social Media Before Bed', completed: false }
       ]);
-      const [task6Text, setTask6Text] = useState('');
-      const [task6Completed, setTask6Completed] = useState(false);
       const [streak, setStreak] = useState(0);
       const [lastActiveDate, setLastActiveDate] = useState(null);
       const [todayCompleted, setTodayCompleted] = useState(false);
-      const [isLoading, setIsLoading] = useState(true);
       const [editMode, setEditMode] = useState(false);
+      const [task6Text, setTask6Text] = useState('');
+      const [task6Completed, setTask6Completed] = useState(false);
       const [hasEditedOnce, setHasEditedOnce] = useState(false);
+      const [isLoading, setIsLoading] = useState(true);
 
       useEffect(() => {
         loadData();
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('sw.js');
-        }
       }, []);
 
       useEffect(() => {
@@ -366,65 +913,76 @@
       }, [tasks, streak, lastActiveDate, todayCompleted, task6Text, task6Completed, hasEditedOnce]);
 
       useEffect(() => {
-        const checkDailyReset = () => {
-          const today = new Date().toDateString();
-          
-          if (!lastActiveDate || lastActiveDate !== today) {
-            if (lastActiveDate && lastActiveDate !== today) {
-              if (!todayCompleted) {
-                setStreak(0);
-              }
-              setTasks(tasks.map(t => ({ ...t, completed: false })));
-              setTask6Text('');
-              setTask6Completed(false);
-              setTodayCompleted(false);
-            }
-            setLastActiveDate(today);
-          }
-        };
-        
-        if (!isLoading) {
-          checkDailyReset();
-          const interval = setInterval(checkDailyReset, 60000);
+        if (!isLoading && lastActiveDate) {
+          const interval = setInterval(() => {
+            checkDateChange();
+          }, 60000);
           return () => clearInterval(interval);
         }
       }, [lastActiveDate, todayCompleted, isLoading]);
 
+      const checkDateChange = () => {
+        const today = new Date().toDateString();
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+        if (lastActiveDate === yesterday && !todayCompleted) {
+          setStreak(0);
+          resetDailyTasks();
+          setLastActiveDate(today);
+        } else if (lastActiveDate !== today && lastActiveDate !== yesterday) {
+          if (!todayCompleted) {
+            setStreak(0);
+          }
+          resetDailyTasks();
+          setLastActiveDate(today);
+        }
+      };
+
+      const resetDailyTasks = () => {
+        setTasks(tasks.map(t => ({ ...t, completed: false })));
+        setTask6Text('');
+        setTask6Completed(false);
+        setTodayCompleted(false);
+      };
+
       const loadData = async () => {
         try {
-          const tasksData = localStorage.getItem('streak-tasks');
-          const streakData = localStorage.getItem('streak-count');
-          const dateData = localStorage.getItem('streak-last-date');
-          const completedData = localStorage.getItem('streak-today-completed');
-          const task6TextData = localStorage.getItem('streak-task6-text');
-          const task6CompletedData = localStorage.getItem('streak-task6-completed');
-          const hasEditedData = localStorage.getItem('streak-has-edited');
+          const dataKey = `user-data-${currentUser.username}`;
+          const result = await window.storage.get(dataKey, true);
           
-          if (tasksData) setTasks(JSON.parse(tasksData));
-          if (streakData) setStreak(parseInt(streakData));
-          if (dateData) setLastActiveDate(dateData);
-          if (completedData) setTodayCompleted(completedData === 'true');
-          if (task6TextData) setTask6Text(task6TextData);
-          if (task6CompletedData) setTask6Completed(task6CompletedData === 'true');
-          if (hasEditedData) setHasEditedOnce(hasEditedData === 'true');
+          if (result && result.value) {
+            const data = JSON.parse(result.value);
+            setTasks(data.tasks || tasks);
+            setStreak(data.streak || 0);
+            setLastActiveDate(data.lastActiveDate || new Date().toDateString());
+            setTodayCompleted(data.todayCompleted || false);
+            setTask6Text(data.task6Text || '');
+            setTask6Completed(data.task6Completed || false);
+            setHasEditedOnce(data.hasEditedOnce || false);
+          } else {
+            setLastActiveDate(new Date().toDateString());
+          }
         } catch (error) {
-          console.log('First time loading');
+          console.log('First time loading for user:', currentUser.username);
+          setLastActiveDate(new Date().toDateString());
         } finally {
           setIsLoading(false);
         }
       };
 
-      const saveData = () => {
+      const saveData = async () => {
         try {
-          localStorage.setItem('streak-tasks', JSON.stringify(tasks));
-          localStorage.setItem('streak-count', streak.toString());
-          localStorage.setItem('streak-today-completed', todayCompleted.toString());
-          localStorage.setItem('streak-task6-text', task6Text);
-          localStorage.setItem('streak-task6-completed', task6Completed.toString());
-          localStorage.setItem('streak-has-edited', hasEditedOnce.toString());
-          if (lastActiveDate) {
-            localStorage.setItem('streak-last-date', lastActiveDate);
-          }
+          const dataKey = `user-data-${currentUser.username}`;
+          const data = {
+            tasks,
+            streak,
+            lastActiveDate,
+            todayCompleted,
+            task6Text,
+            task6Completed,
+            hasEditedOnce
+          };
+          await window.storage.set(dataKey, JSON.stringify(data), true);
         } catch (error) {
           console.error('Failed to save:', error);
         }
@@ -436,13 +994,13 @@
         );
         setTasks(updatedTasks);
 
-        // Check if all 5 checkbox tasks + task6 text field are completed
         const allCheckboxCompleted = updatedTasks.every(t => t.completed);
         const allCompleted = allCheckboxCompleted && task6Completed;
         
         if (allCompleted && !todayCompleted) {
           setStreak(prev => prev + 1);
           setTodayCompleted(true);
+          setLastActiveDate(new Date().toDateString());
         } else if (!allCompleted && todayCompleted) {
           setStreak(prev => Math.max(0, prev - 1));
           setTodayCompleted(false);
@@ -453,20 +1011,19 @@
         if (task6Text.trim()) {
           setTask6Completed(true);
           
-          // Check if all tasks are now completed
           const allCheckboxCompleted = tasks.every(t => t.completed);
-          const allCompleted = allCheckboxCompleted && true; // task6 just completed
+          const allCompleted = allCheckboxCompleted && true;
           
           if (allCompleted && !todayCompleted) {
             setStreak(prev => prev + 1);
             setTodayCompleted(true);
+            setLastActiveDate(new Date().toDateString());
           }
         }
       };
 
       const handleTask6Change = (e) => {
         setTask6Text(e.target.value);
-        // If text is cleared, mark as incomplete
         if (!e.target.value.trim() && task6Completed) {
           setTask6Completed(false);
           if (todayCompleted) {
@@ -489,7 +1046,6 @@
 
       const handleEditToggle = () => {
         if (editMode) {
-          // Exiting edit mode - lock it permanently
           setHasEditedOnce(true);
         }
         setEditMode(!editMode);
@@ -517,7 +1073,19 @@
       return (
         <div className="container">
           <div className="max-w-md">
-            <div className="header">
+            <div className="header-with-nav">
+              <div style={{ flex: 1 }}>
+                <div className="title" style={{ textAlign: 'left', fontSize: '1.5rem' }}>
+                  Hey, {currentUser.name}! 👋
+                </div>
+              </div>
+              <button onClick={onLogout} className="nav-button">
+                <LogOut size={16} style={{ display: 'inline', marginRight: '0.25rem' }} />
+                Logout
+              </button>
+            </div>
+
+            <div className="header" style={{ marginTop: 0, paddingTop: 0 }}>
               <div className="streak-badge">
                 <Flame style={{ color: '#fb923c' }} />
                 <div style={{ textAlign: 'left' }}>
@@ -525,7 +1093,7 @@
                   <div className="streak-number">{streak} {streak === 1 ? 'Day' : 'Days'}</div>
                 </div>
               </div>
-              <h1 className="title">75 Intentional</h1>
+              <h2 className="title" style={{ fontSize: '1.875rem' }}>Daily Goals</h2>
               <p className="subtitle">Complete all tasks to build your streak</p>
             </div>
 
@@ -566,17 +1134,9 @@
                 </div>
               ))}
               
-              {/* Task 6 - Text Input */}
               <div className={`task6-container ${task6Completed ? 'completed' : ''}`}>
                 <label className="task6-label">
-                  Task 6: {editMode ? (
-                    <input
-                      type="text"
-                      defaultValue="Write your note"
-                      className="task-input"
-                      style={{ display: 'inline-block', width: 'auto', marginLeft: '0.5rem' }}
-                    />
-                  ) : 'Write your note'}
+                  Task 6: Write your daily note
                 </label>
                 <textarea
                   className={`task6-textarea ${task6Completed ? 'completed' : ''}`}
@@ -613,12 +1173,12 @@
             <div className="button-group">
               {!hasEditedOnce && (
                 <button onClick={handleEditToggle} className="button">
-                  <Edit2 />
+                  <Edit2 size={18} />
                   {editMode ? 'Done' : 'Edit Tasks'}
                 </button>
               )}
               <button onClick={resetStreak} className="button" style={!hasEditedOnce ? {} : { flex: 1 }}>
-                <RotateCcw />
+                <RotateCcw size={18} />
                 Reset Streak
               </button>
             </div>
@@ -631,8 +1191,16 @@
       );
     }
 
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch((error) => console.log('Service Worker registration failed:', error));
+    }
+
     const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<StreakTracker />);
+    root.render(<App />);
   </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </body>
 </html>
