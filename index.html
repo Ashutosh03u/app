@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#7c3aed">
+  <meta name="description" content="Daily Streak Tracker - Build consistent habits">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Daily Streak Tracker</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    #root {
+      width: 100%;
+      min-height: 100vh;
+    }
+    .container {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #d946ef 100%);
+      padding: 1rem;
+    }
+    .max-w-md {
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-top: 1rem;
+    }
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 9999px;
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .streak-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .streak-number {
+      color: white;
+      font-size: 1.875rem;
+      font-weight: 900;
+    }
+    .title {
+      color: white;
+      font-size: 2.25rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.875rem;
+    }
+    .progress-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .progress-label {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .progress-count {
+      color: white;
+      font-weight: 700;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 0.75rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4ade80 0%, #10b981 100%);
+      border-radius: 9999px;
+      transition: width 0.5s ease-out;
+    }
+    .tasks-container {
+      margin-bottom: 1.5rem;
+    }
+    .task-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+    .task-card.completed {
+      box-shadow: 0 10px 15px rgba(34, 197, 94, 0.2);
+    }
+    .task-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .checkbox {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      border: 3px solid #d1d5db;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .checkbox.completed {
+      background: linear-gradient(135deg, #4ade80 0%, #10b981 100%);
+      border-color: #10b981;
+      transform: scale(1.1);
+    }
+    .checkbox:hover {
+      border-color: #a855f7;
+    }
+    .task-name {
+      flex: 1;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      transition: all 0.3s;
+    }
+    .task-name.completed {
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+    .task-input {
+      flex: 1;
+      font-size: 1.125rem;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #d8b4fe;
+      outline: none;
+      padding: 0.25rem;
+    }
+    .task-input:focus {
+      border-bottom-color: #a855f7;
+    }
+    .task6-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+    .task6-container.completed {
+      box-shadow: 0 10px 15px rgba(34, 197, 94, 0.2);
+    }
+    .task6-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .task6-textarea {
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      outline: none;
+      resize: vertical;
+      min-height: 80px;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+    .task6-textarea:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+    }
+    .task6-textarea.completed {
+      border-color: #10b981;
+      background-color: #f0fdf4;
+    }
+    .task6-submit {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .task6-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
+    }
+    .task6-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .success-card {
+      background: linear-gradient(90deg, #4ade80 0%, #10b981 100%);
+      color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      animation: bounce-in 0.5s ease-out;
+    }
+    .success-emoji {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    .success-text {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.875rem;
+    }
+    .button-group {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .button {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .footer-text {
+      margin-top: 1.5rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+    }
+    @keyframes bounce-in {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .loading {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #d946ef 100%);
+    }
+    .loading-text {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Icon Components
+    const Flame = () => (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+      </svg>
+    );
+
+    const Check = () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    );
+
+    const Edit2 = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+      </svg>
+    );
+
+    const RotateCcw = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="1 4 1 10 7 10"/>
+        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+      </svg>
+    );
+
+    function StreakTracker() {
+      const [tasks, setTasks] = useState([
+        { id: 1, name: 'Exercise', completed: false },
+        { id: 2, name: 'Read', completed: false },
+        { id: 3, name: 'Meditate', completed: false },
+        { id: 4, name: 'Drink Water', completed: false },
+        { id: 5, name: 'Study', completed: false }
+      ]);
+      const [task6Text, setTask6Text] = useState('');
+      const [task6Completed, setTask6Completed] = useState(false);
+      const [streak, setStreak] = useState(0);
+      const [lastActiveDate, setLastActiveDate] = useState(null);
+      const [todayCompleted, setTodayCompleted] = useState(false);
+      const [isLoading, setIsLoading] = useState(true);
+      const [editMode, setEditMode] = useState(false);
+      const [hasEditedOnce, setHasEditedOnce] = useState(false);
+
+      useEffect(() => {
+        loadData();
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        }
+      }, []);
+
+      useEffect(() => {
+        if (!isLoading) {
+          saveData();
+        }
+      }, [tasks, streak, lastActiveDate, todayCompleted, task6Text, task6Completed, hasEditedOnce]);
+
+      useEffect(() => {
+        const checkDailyReset = () => {
+          const today = new Date().toDateString();
+          
+          if (!lastActiveDate || lastActiveDate !== today) {
+            if (lastActiveDate && lastActiveDate !== today) {
+              if (!todayCompleted) {
+                setStreak(0);
+              }
+              setTasks(tasks.map(t => ({ ...t, completed: false })));
+              setTask6Text('');
+              setTask6Completed(false);
+              setTodayCompleted(false);
+            }
+            setLastActiveDate(today);
+          }
+        };
+        
+        if (!isLoading) {
+          checkDailyReset();
+          const interval = setInterval(checkDailyReset, 60000);
+          return () => clearInterval(interval);
+        }
+      }, [lastActiveDate, todayCompleted, isLoading]);
+
+      const loadData = async () => {
+        try {
+          const tasksData = localStorage.getItem('streak-tasks');
+          const streakData = localStorage.getItem('streak-count');
+          const dateData = localStorage.getItem('streak-last-date');
+          const completedData = localStorage.getItem('streak-today-completed');
+          const task6TextData = localStorage.getItem('streak-task6-text');
+          const task6CompletedData = localStorage.getItem('streak-task6-completed');
+          const hasEditedData = localStorage.getItem('streak-has-edited');
+          
+          if (tasksData) setTasks(JSON.parse(tasksData));
+          if (streakData) setStreak(parseInt(streakData));
+          if (dateData) setLastActiveDate(dateData);
+          if (completedData) setTodayCompleted(completedData === 'true');
+          if (task6TextData) setTask6Text(task6TextData);
+          if (task6CompletedData) setTask6Completed(task6CompletedData === 'true');
+          if (hasEditedData) setHasEditedOnce(hasEditedData === 'true');
+        } catch (error) {
+          console.log('First time loading');
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      const saveData = () => {
+        try {
+          localStorage.setItem('streak-tasks', JSON.stringify(tasks));
+          localStorage.setItem('streak-count', streak.toString());
+          localStorage.setItem('streak-today-completed', todayCompleted.toString());
+          localStorage.setItem('streak-task6-text', task6Text);
+          localStorage.setItem('streak-task6-completed', task6Completed.toString());
+          localStorage.setItem('streak-has-edited', hasEditedOnce.toString());
+          if (lastActiveDate) {
+            localStorage.setItem('streak-last-date', lastActiveDate);
+          }
+        } catch (error) {
+          console.error('Failed to save:', error);
+        }
+      };
+
+      const toggleTask = (taskId) => {
+        const updatedTasks = tasks.map(task =>
+          task.id === taskId ? { ...task, completed: !task.completed } : task
+        );
+        setTasks(updatedTasks);
+
+        // Check if all 5 checkbox tasks + task6 text field are completed
+        const allCheckboxCompleted = updatedTasks.every(t => t.completed);
+        const allCompleted = allCheckboxCompleted && task6Completed;
+        
+        if (allCompleted && !todayCompleted) {
+          setStreak(prev => prev + 1);
+          setTodayCompleted(true);
+        } else if (!allCompleted && todayCompleted) {
+          setStreak(prev => Math.max(0, prev - 1));
+          setTodayCompleted(false);
+        }
+      };
+
+      const handleTask6Submit = () => {
+        if (task6Text.trim()) {
+          setTask6Completed(true);
+          
+          // Check if all tasks are now completed
+          const allCheckboxCompleted = tasks.every(t => t.completed);
+          const allCompleted = allCheckboxCompleted && true; // task6 just completed
+          
+          if (allCompleted && !todayCompleted) {
+            setStreak(prev => prev + 1);
+            setTodayCompleted(true);
+          }
+        }
+      };
+
+      const handleTask6Change = (e) => {
+        setTask6Text(e.target.value);
+        // If text is cleared, mark as incomplete
+        if (!e.target.value.trim() && task6Completed) {
+          setTask6Completed(false);
+          if (todayCompleted) {
+            setStreak(prev => Math.max(0, prev - 1));
+            setTodayCompleted(false);
+          }
+        }
+      };
+
+      const resetStreak = () => {
+        if (window.confirm('Are you sure you want to reset your streak?')) {
+          setStreak(0);
+          setTasks(tasks.map(t => ({ ...t, completed: false })));
+          setTask6Text('');
+          setTask6Completed(false);
+          setTodayCompleted(false);
+          setLastActiveDate(new Date().toDateString());
+        }
+      };
+
+      const handleEditToggle = () => {
+        if (editMode) {
+          // Exiting edit mode - lock it permanently
+          setHasEditedOnce(true);
+        }
+        setEditMode(!editMode);
+      };
+
+      const updateTaskName = (taskId, newName) => {
+        setTasks(tasks.map(task =>
+          task.id === taskId ? { ...task, name: newName } : task
+        ));
+      };
+
+      const completedCount = tasks.filter(t => t.completed).length + (task6Completed ? 1 : 0);
+      const totalTasks = 6;
+      const progress = (completedCount / totalTasks) * 100;
+      const allCompleted = completedCount === totalTasks;
+
+      if (isLoading) {
+        return (
+          <div className="loading">
+            <div className="loading-text">Loading...</div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="container">
+          <div className="max-w-md">
+            <div className="header">
+              <div className="streak-badge">
+                <Flame style={{ color: '#fb923c' }} />
+                <div style={{ textAlign: 'left' }}>
+                  <div className="streak-label">Current Streak</div>
+                  <div className="streak-number">{streak} {streak === 1 ? 'Day' : 'Days'}</div>
+                </div>
+              </div>
+              <h1 className="title">Daily Goals</h1>
+              <p className="subtitle">Complete all tasks to build your streak</p>
+            </div>
+
+            <div className="progress-card">
+              <div className="progress-header">
+                <span className="progress-label">Today's Progress</span>
+                <span className="progress-count">{completedCount}/6</span>
+              </div>
+              <div className="progress-bar-bg">
+                <div className="progress-bar" style={{ width: `${progress}%` }} />
+              </div>
+            </div>
+
+            <div className="tasks-container">
+              {tasks.map((task) => (
+                <div key={task.id} className={`task-card ${task.completed ? 'completed' : ''}`}>
+                  <div className="task-content">
+                    <div 
+                      className={`checkbox ${task.completed ? 'completed' : ''}`}
+                      onClick={() => toggleTask(task.id)}
+                    >
+                      {task.completed && <Check />}
+                    </div>
+                    
+                    {editMode ? (
+                      <input
+                        type="text"
+                        value={task.name}
+                        onChange={(e) => updateTaskName(task.id, e.target.value)}
+                        className="task-input"
+                      />
+                    ) : (
+                      <span className={`task-name ${task.completed ? 'completed' : ''}`}>
+                        {task.name}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+              
+              {/* Task 6 - Text Input */}
+              <div className={`task6-container ${task6Completed ? 'completed' : ''}`}>
+                <label className="task6-label">
+                  Task 6: {editMode ? (
+                    <input
+                      type="text"
+                      defaultValue="Write your note"
+                      className="task-input"
+                      style={{ display: 'inline-block', width: 'auto', marginLeft: '0.5rem' }}
+                    />
+                  ) : 'Write your note'}
+                </label>
+                <textarea
+                  className={`task6-textarea ${task6Completed ? 'completed' : ''}`}
+                  value={task6Text}
+                  onChange={handleTask6Change}
+                  placeholder="Type something here and click Submit..."
+                  disabled={task6Completed}
+                />
+                {!task6Completed && (
+                  <button 
+                    className="task6-submit"
+                    onClick={handleTask6Submit}
+                    disabled={!task6Text.trim()}
+                  >
+                    Submit & Mark Complete
+                  </button>
+                )}
+                {task6Completed && (
+                  <div style={{ marginTop: '0.5rem', color: '#10b981', fontWeight: '600', fontSize: '0.875rem' }}>
+                    ✓ Completed
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {allCompleted && (
+              <div className="success-card">
+                <div className="success-emoji">🎉</div>
+                <div className="success-title">Amazing Work!</div>
+                <div className="success-text">You've completed all tasks today!</div>
+              </div>
+            )}
+
+            <div className="button-group">
+              {!hasEditedOnce && (
+                <button onClick={handleEditToggle} className="button">
+                  <Edit2 />
+                  {editMode ? 'Done' : 'Edit Tasks'}
+                </button>
+              )}
+              <button onClick={resetStreak} className="button" style={!hasEditedOnce ? {} : { flex: 1 }}>
+                <RotateCcw />
+                Reset Streak
+              </button>
+            </div>
+
+            <div className="footer-text">
+              Complete all 6 tasks each day to maintain your streak
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<StreakTracker />);
+  </script>
+</body>
+</html>
